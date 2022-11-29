@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import logo from "../assets/logo.png";
-import background from "../assets/login.jpg";
 import { useNavigate } from "react-router-dom";
 import BackgroundImage from "../components/BackgroundImage";
 import Header from "../components/Header";
@@ -12,7 +10,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
+  // var isSignIn=false;
   const handleLogin = async () => {
     try {
       await signInWithEmailAndPassword(firebaseAuth, email, password);
@@ -22,7 +20,7 @@ function Login() {
   };
 
   onAuthStateChanged(firebaseAuth, (currentUser) => {
-    if (currentUser) navigate("/");
+    if (currentUser) navigate("/browse");
   });
 
   return (
@@ -45,7 +43,7 @@ function Login() {
               <input
                 type="password"
                 placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {setPassword(e.target.value)}}
                 value={password}
               />
               <button onClick={handleLogin}>Sign In</button>

@@ -32,7 +32,7 @@ export default function Signup() {
         <Header login/>
         <div className="body flex column a-center j-center">
           <div className="text flex column">
-            <h1>Unlimited Movies, TV shows and more</h1>
+            <h2>Unlimited Movies, TV shows and more</h2>
             <h4>Watch anywhere. Cancel anytime.</h4>
             <h6>Ready to watch? Enter your mail to create or restart membership</h6>
           </div>
