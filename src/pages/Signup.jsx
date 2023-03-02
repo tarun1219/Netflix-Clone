@@ -1,43 +1,49 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
-import React, { useState } from 'react'
-import styled from "styled-components";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import BackgroundImage from '../components/BackgroundImage';
-import Header from '../components/Header';
-import { firebaseAuth } from '../utils/firebase-config';
+import styled from "styled-components";
+import BackgroundImage from "../components/BackgroundImage";
+import Header from "../components/Header";
+import { firebaseAuth } from "../utils/firebase-config";
+function Signup() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [formValues, setFormValues] = useState({
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
 
-export default function Signup() {
-  const Navigate = useNavigate();
-  const [showPassword,setShowPassword]=useState(false);
-  const [formValues,setFormValues]= useState({
-    email:"",
-    password:"",
-  })
-  const handleSignIn= async()=>{
-    try{
-      const {email,password}= formValues;
-      await createUserWithEmailAndPassword(firebaseAuth,email,password);
-    }
-    catch(err){
-      console.log(err);
+  const handleSignIn = async () => {
+    try {
+      const { email, password } = formValues;
+      await createUserWithEmailAndPassword(firebaseAuth, email, password);
+    } catch (error) {
+      console.log(error);
     }
   };
-  onAuthStateChanged(firebaseAuth,(currentUser)=>{
-    if(currentUser) Navigate("/");
+
+  onAuthStateChanged(firebaseAuth, (currentUser) => {
+    if (currentUser) navigate("/");
   });
+
   return (
     <Container showPassword={showPassword}>
       <BackgroundImage />
       <div className="content">
-        <Header login/>
+        <Header login />
         <div className="body flex column a-center j-center">
           <div className="text flex column">
-            <h1>Unlimited Movies, TV shows and more</h1>
+            <h2>Unlimited movies, TV shows and more.</h2>
             <h4>Watch anywhere. Cancel anytime.</h4>
-            <h6>Ready to watch? Enter your mail to create or restart membership</h6>
+            <h6>
+              Ready to watch? Enter your email to create or restart membership.
+            </h6>
           </div>
           <div className="form">
-          <input
+            <input
               type="email"
               placeholder="Email address"
               onChange={(e) =>
@@ -63,18 +69,17 @@ export default function Signup() {
                 value={formValues.password}
               />
             )}
-            
-            {
-              !showPassword && (<button onClick={()=>setShowPassword(true)}>Get Started</button>) 
-            }
-            
+            {!showPassword && (
+              <button onClick={() => setShowPassword(true)}>Get Started</button>
+            )}
           </div>
-          <button onClick={handleSignIn}>Sign Up</button>
+          {showPassword && <button onClick={handleSignIn}>Sign Up</button>}
         </div>
-      </div>  
+      </div>
     </Container>
   );
 }
+
 const Container = styled.div`
   position: relative;
   .content {
@@ -135,3 +140,4 @@ const Container = styled.div`
   }
 `;
 
+export default Signup;

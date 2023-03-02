@@ -33,7 +33,7 @@ function Login() {
         <div className="form-container flex column a-center j-center">
           <div className="form flex column a-center j-center">
             <div className="title">
-              <h1>Sign In</h1>
+              <h3>Login</h3>
             </div>
             <div className="container flex column">
               <input
@@ -48,7 +48,7 @@ function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
               />
-              <button onClick={handleLogin}>Sign In</button>
+              <button onClick={handleLogin}>Login to your account</button>
             </div>
           </div>
         </div>
